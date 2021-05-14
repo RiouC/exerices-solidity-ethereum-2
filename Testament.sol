@@ -42,6 +42,7 @@ contract Testament is Ownable {
     }
 
     function bequeath(address account) public payable onlyOwner {
+	require(account != 0, "Testament : You cannot bequeath to address 0");
         emit Bequeathed(account, msg.value);
         _beneficiaries[account] += msg.value;
     }
