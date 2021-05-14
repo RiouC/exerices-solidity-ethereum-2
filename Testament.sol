@@ -15,8 +15,6 @@ contract Testament is Ownable {
     address private _doctor;
     bool private _isDead = false;
     
-    event Offered(address indexed sender, uint256 amount);
-    event Given(address indexed presentReceiver, uint256 amount);
     event Bequeathed(address indexed heir, uint256 amount);
     event Inherited(address indexed heir, uint256 amount); 
 
