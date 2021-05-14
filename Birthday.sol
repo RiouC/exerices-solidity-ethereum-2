@@ -15,6 +15,8 @@ contract Birthday {
     uint256 private _timestampOrigin;
     uint256 private _birthdayDate;
 
+    event Offered(address indexed sender, uint256 amount);
+    event Given(address indexed presentReceiver, uint256 amount);
 
     constructor(address presentReceiver_, uint256 daysDelay) {
         _presentReceiver = presentReceiver_;
@@ -25,12 +27,14 @@ contract Birthday {
 
     receive() external payable {
         _giftAmount += msg.value;
+	emit Offered(msg.sender, msg.value);
     }
 
     fallback() external {}
     
     function offer() external payable {
         _giftAmount += msg.value;
+	emit Offered(msg.sender, msg.value);
     }
     
     function getPresent() external {
@@ -38,6 +42,7 @@ contract Birthday {
         require(block.timestamp + 1 days >= _birthdayDate, "Birthday (getPresent) : This is not yet your birthday, be patient !");
         uint256 tmp = _giftAmount;
         _giftAmount = 0;
+	emit Given(_presentReceiver, _giftAmount);
         payable(msg.sender).sendValue(tmp);
     }
     

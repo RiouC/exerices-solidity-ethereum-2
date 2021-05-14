@@ -15,11 +15,9 @@ contract Birthday {
     uint256 private _timestampOrigin;
     uint256 private _birthdayDate;
     
-
     event Offered(address indexed sender, uint256 amount);
     event Given(address indexed presentReceiver, uint256 amount);
     
-
     constructor(address presentReceiver_, uint256 daysDelay) {
         _presentReceiver = presentReceiver_;
         _timestampOrigin = block.timestamp;
@@ -29,7 +27,6 @@ contract Birthday {
             _birthdayDate = _timestampOrigin + daysDelay * 1 days;
         }
     }
-
 
     receive() external payable {
         _giftAmount += msg.value;
